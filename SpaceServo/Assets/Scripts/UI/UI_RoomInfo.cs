@@ -26,10 +26,10 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         closeButton.onClick.AddListener(OnCloseButtonPress);
+        destroyRoomButton.onClick.AddListener(OnDestoryButtonPress);
         UpdateUI();
 
         addFloorButton.interactable = false;
-        destroyRoomButton.interactable = false;
         addPlaceableButton.onClick.AddListener(OnAddPlaceableButtonPress);
     }
 
@@ -58,6 +58,7 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         closeButton.onClick.RemoveAllListeners();
         addPlaceableButton.onClick.RemoveAllListeners();
+        destroyRoomButton.onClick.RemoveListener(OnDestoryButtonPress);
     }
 
 
@@ -80,5 +81,13 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void OnAddPlaceableButtonPress()
     {
         UI.ShowPlaceablesMenu();
+    }
+
+    private void OnDestoryButtonPress()
+    {
+        UI.Sound.PLayRemoveSound();
+        Destroy(room.gameObject);
+        Game.Selection.DeselectRoom();
+        UI.MouseOverUI = false;
     }
 }

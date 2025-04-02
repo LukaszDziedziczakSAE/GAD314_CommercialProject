@@ -15,6 +15,7 @@ public class Ship : MonoBehaviour
     public float RequiredFuel => Fuel.MaxAmount - Fuel.Amount;
 
     private Vector3 departurePoint;
+    [field: SerializeField] public A_Ship Sound { get; private set; }
 
     public enum EState
     {
@@ -101,6 +102,7 @@ public class Ship : MonoBehaviour
         State = EState.Arriving;
         transform.LookAt(landingPad.ArivalPosition);
         landingPad.CurrentShip = this;
+        Sound.PlayRunningSound();
     }
 
     private void ArrivingUpdate()
@@ -116,6 +118,7 @@ public class Ship : MonoBehaviour
             //transform.rotation = LandingPad.transform.rotation;
             targetRotation = LandingPad.transform.rotation;
             State = EState.Landing;
+            Sound.PlayLandingSound();
         }
     }
 
@@ -136,6 +139,7 @@ public class Ship : MonoBehaviour
 
             State = EState.Idle;
             Customer = Station.CustomerManager.SpawnCustomer(LandingPad.CustomerSpawnPoint, this);
+            Sound.Stop();
         }
     }
 
@@ -155,6 +159,7 @@ public class Ship : MonoBehaviour
             State = EState.Leaving;
             LandingPad.CurrentShip = null;
             LandingPad = null;
+            Sound.PlayRunningSound();
         }
     }
 
@@ -184,6 +189,7 @@ public class Ship : MonoBehaviour
         departurePoint = Station.ShipManager.RandomPoint(LandingPad.transform.position);
 
         targetRotation = Quaternion.LookRotation(departurePoint - transform.position, transform.up);
+        Sound.PlayTakeOffSound();
     }
 
     public void BeginRefueling()

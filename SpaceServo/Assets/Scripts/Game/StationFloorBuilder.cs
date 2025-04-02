@@ -29,6 +29,10 @@ public class StationFloorBuilder : MonoBehaviour
     private FloorTile possibleOtherDoorTile; // TODO: preview doorway building iteration
     [SerializeField] private Vector2 currentRoomSize;
 
+    public RoomObject CurrentRoom => currentRoom;
+    public int CostOfPlacement => costOfPlacement;
+    public Vector2 CurrentRoomSize => currentRoomSize;
+
     private void Update()
     {
 
@@ -158,7 +162,8 @@ public class StationFloorBuilder : MonoBehaviour
         currentRoom.Initialize(config);
         if (Game.Tutorial.ListentingForFloorBuildStart) Game.Tutorial.RoomBuiltStarted(config);
 
-        Game.Selection.SelectRoom(currentRoom);
+        Game.Selection.DeselectRoom();
+        UI.ShowFloorPlacementInfo();
     }
 
     private Vector3 GroundLocationUnderMouse
@@ -242,7 +247,9 @@ public class StationFloorBuilder : MonoBehaviour
                         Game.Debug.RoomsBuilt[currentRoom.Config]++;
                     else
                         Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);
+                    Game.Selection.SelectRoom(currentRoom);
                     currentRoom = null;
+                    UI.Sound.PlayPlaceFloorSound();
                     Game.Input.OnSecondaryPress -= CancelPlacement;
                 }
                 else
@@ -258,7 +265,9 @@ public class StationFloorBuilder : MonoBehaviour
                     Game.Debug.RoomsBuilt[currentRoom.Config]++;
                 else
                     Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);
+                Game.Selection.SelectRoom(currentRoom);
                 currentRoom = null;
+                UI.Sound.PlayPlaceFloorSound();
                 Game.Input.OnSecondaryPress -= CancelPlacement;
             }
 
@@ -328,7 +337,9 @@ public class StationFloorBuilder : MonoBehaviour
                 Game.Debug.RoomsBuilt[currentRoom.Config]++;
             else
                 Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);
+            Game.Selection.SelectRoom(currentRoom);
             currentRoom = null;
+            UI.Sound.PlayPlaceFloorSound();
             Game.Input.OnSecondaryPress -= CancelPlacement;
         }
     }
@@ -367,6 +378,7 @@ public class StationFloorBuilder : MonoBehaviour
 
         Game.Selection.DeselectRoom();
         Destroy(currentRoom.gameObject);
+        UI.Sound.PlayButtonCancelSound();
         currentRoom = null;
         //placing = false;
     }

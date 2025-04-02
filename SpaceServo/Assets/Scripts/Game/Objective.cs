@@ -47,7 +47,7 @@ public class Objective
                     break;
 
                 case EType.Rating:
-                    output += "Achieve a rating of " + Value/10 + " out of " + Station.Rating.MAX_RATING/10 + " starts";
+                    output += Value/10 + " out of " + Station.Rating.MAX_RATING/10 + " star raiting";
                     break;
 
                 case EType.MoneyTotal:

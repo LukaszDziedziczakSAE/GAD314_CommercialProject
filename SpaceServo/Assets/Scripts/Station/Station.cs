@@ -58,9 +58,25 @@ public class Station : MonoBehaviour
             Instance.placeableObjects.Add(newobject);
         }
 
-        newobject.transform.parent = Instance.transform;
+        //newobject.transform.parent = Instance.transform;
 
         OnPlaceableAdded?.Invoke(newobject);
+    }
+
+    public static void RemovePlaceable(PlaceableObject newobject)
+    {
+        if (newobject.TryGetComponent<LandingPad>(out LandingPad landingPad))
+        {
+            Instance.landingPads.Remove(landingPad);
+        }
+        else if (newobject.TryGetComponent<TransactionDesk>(out TransactionDesk transactionDesk))
+        {
+            Instance.transactionDesks.Remove(transactionDesk);
+        }
+        else
+        {
+            Instance.placeableObjects.Remove(newobject);
+        }
     }
 
     public static void SetNavMeshSurface(NavMeshSurface navMesh)

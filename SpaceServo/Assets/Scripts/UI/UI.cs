@@ -18,6 +18,8 @@ public class UI : MonoBehaviour
     [SerializeField] private UI_Settings settings;
     [SerializeField] private UI_Objectives objectives;
     [SerializeField] private UI_WinScreen winScreen;
+    [SerializeField] private UI_FloorPlacementInfo floorPlacementInfo;
+    [SerializeField] private A_UISounds uISounds;
 
     public static bool MouseOverUI;
 
@@ -25,6 +27,7 @@ public class UI : MonoBehaviour
     public static bool IsPlaceablesMenuShowing => Instance.placeablesMenu.gameObject.activeSelf;
     public static bool IsRoomsMenuShowing => Instance.roomsMenu.gameObject.activeSelf;
     public static UI_TopBar TopBar => Instance.topBar;
+    public static A_UISounds Sound => Instance.uISounds;
 
     private void Awake()
     {
@@ -138,5 +141,11 @@ public class UI : MonoBehaviour
     public static void ShowWinScreen(bool show = true)
     {
         Instance.winScreen.gameObject.SetActive(show);
+    }
+
+    public static void ShowFloorPlacementInfo(bool show = true)
+    {
+        Instance.floorPlacementInfo.gameObject.SetActive(show);
+        Instance.objectives.gameObject.SetActive(!show);
     }
 }

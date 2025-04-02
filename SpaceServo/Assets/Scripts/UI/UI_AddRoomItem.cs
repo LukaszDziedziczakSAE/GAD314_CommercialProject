@@ -36,6 +36,8 @@ public class UI_AddRoomItem : MonoBehaviour
 
     private void OnButtonPress()
     {
+        UI.Sound.PlayButtonPressSound();
+
         Game.FloorBuilder.StartPlacingFloor(config);
 
         button.onClick.RemoveListener(OnButtonPress);

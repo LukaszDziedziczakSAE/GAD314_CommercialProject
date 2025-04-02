@@ -15,4 +15,4 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 4895182440696372154, guid: 640dfada40568fc4294259211dc1e414, type: 3}
   <Name>k__BackingField: Plant
   <Cost>k__BackingField: 50
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 2800000, guid: dc35f926b7575db4a8b7c1a9ff785dfd, type: 3}

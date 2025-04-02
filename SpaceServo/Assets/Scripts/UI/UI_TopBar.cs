@@ -29,6 +29,7 @@ public class UI_TopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void OnBuildFloorButtonPress()
     {
+        UI.Sound.PlayButtonPressSound();
         Game.Selection.DeselectCustomer();
         Game.Selection.DeselectRoom();
         UI.ShowRoomsMenu(!UI.IsRoomsMenuShowing);
@@ -36,6 +37,7 @@ public class UI_TopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void OnPlaceObjectButtonPress()
     {
+        UI.Sound.PlayButtonPressSound();
         Game.Selection.DeselectCustomer();
         //Game.Selection.DeselectRoom();
         UI.ShowPlaceablesMenu(!UI.IsPlaceablesMenuShowing);

@@ -31,11 +31,13 @@ public class UI_Tutorial : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnNextPress()
     {
+        UI.Sound.PlayButtonPressSound();
         Game.Tutorial.PartComplete();
     }
 
     public void OnExitPress()
     {
+        UI.Sound.PlayButtonCancelSound();
         Game.Tutorial.ExitTutorial();
     }
 

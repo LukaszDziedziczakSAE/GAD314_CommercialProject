@@ -20,6 +20,7 @@ public class TransactionDesk : PlaceableObject
     public int FreeCustomerSlots => MaxQueueSize - CustomerQueue.Count;
 
     public event Action<StaffMember> OnHireStaff;
+    [field: SerializeField] public A_FuelPurchase Sound { get; private set; }
 
     protected override void Update()
     {
@@ -90,7 +91,7 @@ public class TransactionDesk : PlaceableObject
     public void ShowMoneyIndicator(int moneyAmount)
     {
         Indicator.gameObject.SetActive(true);
-        Indicator.Initilize(moneyAmount);
+        Indicator.Initilize(moneyAmount, transform.eulerAngles.y);
     }
 
     protected override void OnTriggerEnter(Collider other)

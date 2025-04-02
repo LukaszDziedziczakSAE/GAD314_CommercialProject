@@ -79,6 +79,8 @@ public class Tutorial : MonoBehaviour
         index = -1;
         UI.ShowTutorial(false);
         UI.UpdateObjectives();
+
+        audioSource.Stop();
     }
 
     public Objective NextObjective

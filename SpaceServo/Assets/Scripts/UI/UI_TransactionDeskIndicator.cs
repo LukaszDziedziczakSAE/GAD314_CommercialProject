@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,8 +11,9 @@ public class UI_TransactionDeskIndicator : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] RectTransform rectTransform;
 
-    public void Initilize(int moneyAmount)
+    public void Initilize(int moneyAmount, float rotation)
     {
+        rectTransform.localEulerAngles = new Vector3( Game.CameraController.Angle, rotation, 0 );
         moneyIndicator.text = "$" + moneyAmount.ToString();
         rectTransform.anchoredPosition3D = new Vector3(
             rectTransform.anchoredPosition3D.x, 
@@ -21,6 +23,11 @@ public class UI_TransactionDeskIndicator : MonoBehaviour
         Color color = moneyIndicator.color;
         color.a = 1;
         moneyIndicator.color = color;
+    }
+
+    private void CorrectRotation()
+    {
+        
     }
 
     public void Update()

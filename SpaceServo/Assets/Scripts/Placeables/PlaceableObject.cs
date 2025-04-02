@@ -217,6 +217,7 @@ public class PlaceableObject : MonoBehaviour
     protected virtual void OnDestroy()
     {
         if (Room != null) Room.RemovePlaceable(this);
+        Station.RemovePlaceable(this);
     }
 
     protected virtual void OnTriggerEnter(Collider other)

@@ -41,6 +41,7 @@ public class UI_RoomInfo_Placeable : MonoBehaviour
 
     private void OnRemoveButtonPress()
     {
+        UI.Sound.PLayRemoveSound();
         Destroy(placeable.gameObject);
         UI.UpdateRoomInfo();
     }

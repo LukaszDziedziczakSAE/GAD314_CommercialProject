@@ -39,6 +39,8 @@ public class UI_AddPlaceablesItem : MonoBehaviour
 
     private void OnButtonPress()
     {
+        UI.Sound.PlayButtonPressSound();
+
         Game.PlaceableBuilder.BeginPlacement(config);
 
         button.onClick.RemoveListener(OnButtonPress);

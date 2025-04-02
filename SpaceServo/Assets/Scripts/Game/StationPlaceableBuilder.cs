@@ -95,7 +95,7 @@ public class StationPlaceableBuilder : MonoBehaviour
             Game.Debug.PlaceablesBuilt.Add(currentPlaceable, 1);
 
 
-        
+        UI.Sound.PlayBuildPlaceableSound();
         currentPlaceableObject = null;
 
         if (Game.Input.ContinueProcedure) BeginPlacement(currentPlaceable);
@@ -107,6 +107,8 @@ public class StationPlaceableBuilder : MonoBehaviour
         Game.Input.OnPrimaryPress -= CompletePlacement;
         Game.Input.OnSecondaryPress -= CancelPlacement;
         Game.Input.OnRotatePress -= RotatePlacement;
+
+        UI.Sound.PlayButtonCancelSound();
 
         currentPlaceable = null;
         Destroy(currentPlaceableObject.gameObject);

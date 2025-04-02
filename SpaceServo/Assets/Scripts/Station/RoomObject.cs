@@ -46,6 +46,7 @@ public class RoomObject : MonoBehaviour
     public void AddPlaceable(PlaceableObject placeableObject)
     {
         Placeables.Add(placeableObject);
+        placeableObject.transform.parent = transform;
     }
 
     public void RemovePlaceable(PlaceableObject placeableObject)
@@ -170,6 +171,11 @@ public class RoomObject : MonoBehaviour
 
     private void OnDestroy()
     {
+        foreach (PlaceableObject placeableObject in Placeables)
+        {
+            Destroy(placeableObject);
+        }
+
         Station.RemoveRoom(this);
     }
 
