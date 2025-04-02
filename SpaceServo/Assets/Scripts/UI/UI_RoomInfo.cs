@@ -85,7 +85,7 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void OnDestoryButtonPress()
     {
-        UI.Sound.PLayRemoveSound();
+        UI.Sound.PlayRemoveSound();
         Destroy(room.gameObject);
         Game.Selection.DeselectRoom();
         UI.MouseOverUI = false;

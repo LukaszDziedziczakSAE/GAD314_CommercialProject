@@ -16,6 +16,7 @@ public class Ship : MonoBehaviour
 
     private Vector3 departurePoint;
     [field: SerializeField] public A_Ship Sound { get; private set; }
+    [field: SerializeField] public ShipEngines Engines { get; private set; }
 
     public enum EState
     {
@@ -103,6 +104,7 @@ public class Ship : MonoBehaviour
         transform.LookAt(landingPad.ArivalPosition);
         landingPad.CurrentShip = this;
         Sound.PlayRunningSound();
+        Engines.TurnOn();
     }
 
     private void ArrivingUpdate()
@@ -119,6 +121,7 @@ public class Ship : MonoBehaviour
             targetRotation = LandingPad.transform.rotation;
             State = EState.Landing;
             Sound.PlayLandingSound();
+            Engines.TurnOff();
         }
     }
 
@@ -160,6 +163,7 @@ public class Ship : MonoBehaviour
             LandingPad.CurrentShip = null;
             LandingPad = null;
             Sound.PlayRunningSound();
+            Engines.TurnOn();
         }
     }
 

@@ -20,7 +20,7 @@ public class TransactionDesk : PlaceableObject
     public int FreeCustomerSlots => MaxQueueSize - CustomerQueue.Count;
 
     public event Action<StaffMember> OnHireStaff;
-    [field: SerializeField] public A_FuelPurchase Sound { get; private set; }
+    [field: SerializeField] public A_TransactionDesk Sound { get; private set; }
 
     protected override void Update()
     {
@@ -67,6 +67,10 @@ public class TransactionDesk : PlaceableObject
             ShowMoneyIndicator(unitBuyPrice);
         }
 
+        if (Sound == null) Sound = GetComponent<A_TransactionDesk>();
+        if (Sound != null) Sound.PlayPurchaseSound();
+        else Debug.LogError("Transaction Desk Missing ref to sound");
+        
         CurrentCustomer.SetNewState(new CS_WonderingInRoom(CurrentCustomer, Room));
         StaffMember.SetNewState(new SMS_SittingIdle(StaffMember));
 

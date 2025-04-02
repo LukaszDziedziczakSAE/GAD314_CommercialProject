@@ -41,13 +41,14 @@ public class UI_RoomInfo_Placeable : MonoBehaviour
 
     private void OnRemoveButtonPress()
     {
-        UI.Sound.PLayRemoveSound();
+        UI.Sound.PlayRemoveSound();
         Destroy(placeable.gameObject);
         UI.UpdateRoomInfo();
     }
 
     private void OnHireStaffButtonPress()
     {
+        UI.Sound.PlayButtonPressSound();
         if (placeable.TryGetComponent<TransactionDesk>(out TransactionDesk desk))
         {
             desk.HireStaffMember();

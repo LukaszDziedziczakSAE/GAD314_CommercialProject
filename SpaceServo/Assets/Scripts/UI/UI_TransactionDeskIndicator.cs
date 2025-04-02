@@ -13,7 +13,7 @@ public class UI_TransactionDeskIndicator : MonoBehaviour
 
     public void Initilize(int moneyAmount, float rotation)
     {
-        rectTransform.localEulerAngles = new Vector3( Game.CameraController.Angle, rotation, 0 );
+        GetComponent<RectTransform>().localEulerAngles = new Vector3( Game.CameraController.Angle, -rotation, 0 );
         moneyIndicator.text = "$" + moneyAmount.ToString();
         rectTransform.anchoredPosition3D = new Vector3(
             rectTransform.anchoredPosition3D.x, 

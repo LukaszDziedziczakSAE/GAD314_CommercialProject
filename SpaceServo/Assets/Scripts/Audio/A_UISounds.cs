@@ -28,7 +28,7 @@ public class A_UISounds : A_BASE
         PlayClip(buildPlaceable);
     }
 
-    public void PLayRemoveSound()
+    public void PlayRemoveSound()
     {
         PlayClip(remove);
     }

@@ -491,7 +491,7 @@ MonoBehaviour:
   unitBuyPrice: 50
   <Indicator>k__BackingField: {fileID: 5576014417310890762}
   <SatisfactionChange>k__BackingField: 1
-  <Sound>k__BackingField: {fileID: 0}
+  <Sound>k__BackingField: {fileID: 2388981028034156091}
 --- !u!65 &3269519378505580967
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -564,8 +564,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0
+  MaxDistance: 150
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

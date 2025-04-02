@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class A_FuelPurchase : A_BASE
+public class A_TransactionDesk : A_BASE
 {
     [SerializeField] AudioClip purchaseSound;
 
