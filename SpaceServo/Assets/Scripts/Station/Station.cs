@@ -12,6 +12,7 @@ public class Station : MonoBehaviour
     [SerializeField] private ShipManager shipManager;
     [SerializeField] private StationStaffManager staffManager;
     [SerializeField] private CustomerManager customerManager;
+    [SerializeField] private StationSupplies stationSupplies;
     [SerializeField] private Transform roomTransform;
 
     [Header("DEBUG")]
@@ -36,6 +37,7 @@ public class Station : MonoBehaviour
     public static ShipManager ShipManager => Instance.shipManager;
     public static CustomerManager CustomerManager => Instance.customerManager;
     public static bool HasRooms => Instance.rooms.Count > 0;
+    public static StationSupplies Supplies => Instance.stationSupplies;
 
     private void Awake()
     {

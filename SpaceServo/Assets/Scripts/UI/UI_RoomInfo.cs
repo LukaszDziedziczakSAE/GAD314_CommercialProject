@@ -11,6 +11,7 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] Button addFloorButton;
     [SerializeField] Button addPlaceableButton;
     [SerializeField] Button destroyRoomButton;
+    [SerializeField] Button editRoomButton;
     [SerializeField] Transform content;
     [SerializeField] UI_RoomInfo_Placeable placeablePrefab;
 
@@ -31,6 +32,7 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         addFloorButton.interactable = false;
         addPlaceableButton.onClick.AddListener(OnAddPlaceableButtonPress);
+        editRoomButton.onClick.AddListener(OnEditRoomButonPress);
     }
 
     public void UpdateUI()
@@ -59,6 +61,7 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         closeButton.onClick.RemoveAllListeners();
         addPlaceableButton.onClick.RemoveAllListeners();
         destroyRoomButton.onClick.RemoveListener(OnDestoryButtonPress);
+        editRoomButton.onClick.RemoveListener(OnEditRoomButonPress);
     }
 
 
@@ -89,5 +92,12 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Destroy(room.gameObject);
         Game.Selection.DeselectRoom();
         UI.MouseOverUI = false;
+    }
+
+    private void OnEditRoomButonPress()
+    {
+        UI.MouseOverUI = false;
+        Game.FloorBuilder.BeginEditMode(room);
+        Game.Selection.DeselectRoom();
     }
 }

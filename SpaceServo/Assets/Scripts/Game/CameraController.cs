@@ -40,12 +40,14 @@ public class CameraController : MonoBehaviour
     {
         input.OnSecondaryPress += Input_OnMouseSecondaryPress;
         input.OnSecondaryRelease += Input_OnMouseSecondaryRelease;
+        input.OnCameraReset += OnCameraReset;
     }
 
     private void OnDisable()
     {
         input.OnSecondaryPress -= Input_OnMouseSecondaryPress;
         input.OnSecondaryRelease -= Input_OnMouseSecondaryRelease;
+        input.OnCameraReset -= OnCameraReset;
     }
 
     void Update()
@@ -123,21 +125,21 @@ public class CameraController : MonoBehaviour
 
             if (input.MousePosition.x < 0 + edgeSize)
             {
-                position.x -= edgePanSpeed * Time.deltaTime;
+                position.x -= panSpeed * Time.deltaTime;
                 //position.z += -input.MouseDelta.y * panSpeed * Time.deltaTime;
             }
             else if (input.MousePosition.x > Screen.width - edgeSize)
             {
-                position.x += edgePanSpeed * Time.deltaTime;
+                position.x += panSpeed * Time.deltaTime;
             }
 
             if (input.MousePosition.y < 0 + edgeSize)
             {
-                position.z -= edgePanSpeed * Time.deltaTime;
+                position.z -= panSpeed * Time.deltaTime;
             }
             else if (input.MousePosition.y > Screen.height - edgeSize)
             {
-                position.z += edgePanSpeed * Time.deltaTime;
+                position.z += panSpeed * Time.deltaTime;
             }
 
             transform.position = position;
@@ -163,5 +165,20 @@ public class CameraController : MonoBehaviour
             return (input.MousePosition.x < 0 + edgeSize) || (input.MousePosition.x > Screen.width - edgeSize)
                 || (input.MousePosition.y < 0 + edgeSize) || (input.MousePosition.y > Screen.height - edgeSize);
         }
+    }
+
+    public float ScrollSpeed => panSpeed;
+
+    public void SetScrollSpeed(float newSpeed)
+    {
+        panSpeed = newSpeed;
+    }
+
+    private void OnCameraReset()
+    {
+        Vector3 positon = transform.position;
+        positon.x = 0;
+        positon.z = 0;
+        transform.position = positon;
     }
 }

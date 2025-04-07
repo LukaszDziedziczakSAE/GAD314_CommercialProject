@@ -31,6 +31,7 @@ public class Tutorial : MonoBehaviour
         }
     }
 
+    [SerializeField] bool TurnOffTutorial;
     [field: SerializeField] public TutorialPart[] Parts { get; private set; }
     [SerializeField] AudioSource audioSource;
 
@@ -43,7 +44,7 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
-        if (Parts.Length > 0)
+        if (!TurnOffTutorial && Parts.Length > 0)
         {
             PartComplete();
             UI.ShowTutorial(true);
@@ -52,6 +53,8 @@ public class Tutorial : MonoBehaviour
 
     public void PartComplete()
     {
+        if (!IsRunning) return;
+
         if (index >= 0) TurnOffButtonFlashing();
         index++;
         if (index < Parts.Length)

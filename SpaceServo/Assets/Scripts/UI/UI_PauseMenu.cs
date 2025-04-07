@@ -37,7 +37,8 @@ public class UI_PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void OnSettingsButtonPress()
     {
-        // TODO: implement settings menu
+        UI.ShowPauseMenu(false);
+        UI.ShowSettings();
     }
 
     private void OnExitToMenuButtonPress()

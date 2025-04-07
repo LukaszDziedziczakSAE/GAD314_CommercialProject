@@ -107,6 +107,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc3944d9-16ac-435e-8dc5-88f5db0be36e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -294,6 +303,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ContinueProcedure"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ca7f3b3-1444-41eb-a8a6-fbbdba354075"",
+                    ""path"": ""<Keyboard>/home"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -890,6 +910,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
         m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
         m_Player_ContinueProcedure = m_Player.FindAction("ContinueProcedure", throwIfNotFound: true);
+        m_Player_ResetCamera = m_Player.FindAction("ResetCamera", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -978,6 +999,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseDelta;
     private readonly InputAction m_Player_Rotate;
     private readonly InputAction m_Player_ContinueProcedure;
+    private readonly InputAction m_Player_ResetCamera;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -991,6 +1013,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
         public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
         public InputAction @ContinueProcedure => m_Wrapper.m_Player_ContinueProcedure;
+        public InputAction @ResetCamera => m_Wrapper.m_Player_ResetCamera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1027,6 +1050,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ContinueProcedure.started += instance.OnContinueProcedure;
             @ContinueProcedure.performed += instance.OnContinueProcedure;
             @ContinueProcedure.canceled += instance.OnContinueProcedure;
+            @ResetCamera.started += instance.OnResetCamera;
+            @ResetCamera.performed += instance.OnResetCamera;
+            @ResetCamera.canceled += instance.OnResetCamera;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1058,6 +1084,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ContinueProcedure.started -= instance.OnContinueProcedure;
             @ContinueProcedure.performed -= instance.OnContinueProcedure;
             @ContinueProcedure.canceled -= instance.OnContinueProcedure;
+            @ResetCamera.started -= instance.OnResetCamera;
+            @ResetCamera.performed -= instance.OnResetCamera;
+            @ResetCamera.canceled -= instance.OnResetCamera;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1249,6 +1278,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnContinueProcedure(InputAction.CallbackContext context);
+        void OnResetCamera(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -23,6 +23,7 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
     public event Action OnSecondaryPress;
     public event Action OnSecondaryRelease;
     public event Action OnRotatePress;
+    public event Action OnCameraReset;
 
     private void Awake()
     {
@@ -105,5 +106,11 @@ public class InputReader : MonoBehaviour, InputSystem_Actions.IPlayerActions
         {
             ContinueProcedure = false;
         }
+    }
+
+    public void OnResetCamera(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnCameraReset?.Invoke();
     }
 }

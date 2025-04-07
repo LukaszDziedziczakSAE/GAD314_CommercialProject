@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static StationFloorBuilder;
 
 public class RoomObject : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class RoomObject : MonoBehaviour
     public List<PlaceableObject> Placeables { get; private set; } = new List<PlaceableObject>();
     public int Cost => Config.Cost(Floor.Count);
     public List<Customer> IncomingCustomers = new List<Customer>();
+    public Vector2 RoomSize { get; private set; }
 
     public void Initialize(Room config)
     {
@@ -29,6 +31,14 @@ public class RoomObject : MonoBehaviour
         foreach(FloorTile tile in Floor)
         {
             tile.AddWalls();
+        }
+    }
+
+    public void RemoveWalls()
+    {
+        foreach (FloorTile tile in Floor)
+        {
+            tile.RemoveWalls();
         }
     }
 
@@ -196,5 +206,44 @@ public class RoomObject : MonoBehaviour
             }
         }
             
+    }
+
+    public void ShowEditingMaterial()
+    {
+        foreach (FloorTile tile in Floor)
+        {
+            tile.SwitchToBuildingValidMaterial();
+        }
+    }
+
+    public void SetRoomSize(Vector2 Size)
+    {
+        RoomSize = Size;
+    }
+
+    public Vector2 LocalTilePosition(FloorTile tile)
+    {
+        return new Vector2(tile.x - Floor[0].x, tile.z - Floor[0].z);
+    }
+
+    public EWallSide TileWallSide(FloorTile tile)
+    {
+        Vector2 localPosition = LocalTilePosition(tile);
+
+        if (localPosition.x == 0) return EWallSide.LeftWall;
+        else if (localPosition.x == RoomSize.x) return EWallSide.RightWall;
+        else if (localPosition.y == RoomSize.y) return EWallSide.BottomWall;
+        else if (localPosition.y == 0) return EWallSide.TopWall;
+        
+        return EWallSide.NoWall;
+    }
+
+    public void ClearFloor()
+    {
+        foreach (FloorTile tile in Floor)
+        {
+            Destroy(tile.gameObject);
+        }
+        Floor.Clear();
     }
 }

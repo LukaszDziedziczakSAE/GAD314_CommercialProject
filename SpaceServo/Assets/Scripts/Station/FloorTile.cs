@@ -33,6 +33,10 @@ public class FloorTile : MonoBehaviour
 
     public float x => transform.position.x;
     public float z => transform.position.z;
+    public bool TopEdge;
+    public bool BottomEdge;
+    public bool LeftEdge;
+    public bool RightEdge;
 
     public void SetRoom(RoomObject room)
     {
@@ -276,4 +280,15 @@ public class FloorTile : MonoBehaviour
         if (!isOtherTile) OtherRoomTile().MakeDoorTile(true);
         AddWalls();
     }
+
+    public void ClearEdges()
+    {
+        TopEdge = false;
+        LeftEdge = false;
+        RightEdge = false;
+        BottomEdge = false;
+    }
+
+    public bool IsEdgeTile => TopEdge || LeftEdge || RightEdge || BottomEdge;
+
 }

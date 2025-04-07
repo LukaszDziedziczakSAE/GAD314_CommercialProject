@@ -9,6 +9,43 @@ using UnityEngine;
 
 public class StationFloorBuilder : MonoBehaviour
 {
+    public enum EWallSide
+    {
+        NoWall,
+        TopWall,
+        BottomWall,
+        LeftWall,
+        RightWall
+    }
+
+    [System.Serializable]
+    public struct FloorBuildData
+    {
+        public Vector3 firstTilePosition;
+        public Vector2 size;
+
+        public static FloorBuildData Empty
+        {
+            get
+            {
+                FloorBuildData floorBuildData;
+                floorBuildData.firstTilePosition = Vector3.zero;
+                floorBuildData.size = Vector2.zero;
+                return floorBuildData;
+            }
+        }
+
+        public bool IsEmpty
+        {
+            get
+            {
+                return firstTilePosition == Vector3.zero && size == Vector2.zero;
+            }
+        }
+    }
+
+
+
     [field: SerializeField] public Vector2 TileSize = new Vector2(5,5);
     [SerializeField] MeshRenderer plane; // this is something for raycast to hit
     [SerializeField] RoomObject roomPrefab;
@@ -27,11 +64,17 @@ public class StationFloorBuilder : MonoBehaviour
     private bool placingDoor;
     private FloorTile possibleDoorTile;
     private FloorTile possibleOtherDoorTile; // TODO: preview doorway building iteration
-    [SerializeField] private Vector2 currentRoomSize;
+    //[SerializeField] private Vector2 currentRoomSize;
 
     public RoomObject CurrentRoom => currentRoom;
     public int CostOfPlacement => costOfPlacement;
-    public Vector2 CurrentRoomSize => currentRoomSize;
+    public Vector2 CurrentRoomSize => currentBuildData.size;
+    private bool inEditingMode;
+    private int previousCost;
+    private EWallSide selectedWallSide;
+    [SerializeField] FloorBuildData currentBuildData;
+    [SerializeField] FloorBuildData tempBuildData;
+    [SerializeField] FloorBuildData previousBuildData;
 
     private void Update()
     {
@@ -39,6 +82,8 @@ public class StationFloorBuilder : MonoBehaviour
         if (currentRoom == null || UI.MouseOverUI) return;
 
         if (placingDoor) PlacingDoorUpdate();
+
+        else if (inEditingMode) EditFloorUpdate();
 
         else PlacingFloorUpdate();
     }
@@ -74,81 +119,163 @@ public class StationFloorBuilder : MonoBehaviour
         if (!Game.Input.PrimaryButtonDown) // player is indicating where the floor starts
         {
             topLeftPoint = RoundToNearestGrid(GroundLocationUnderMouse);
-            if (topLeftPoint.y >= 500) return;
-
-            if (firstTile == null)
-            {
-                firstTile = Instantiate(currentRoom.Config.FloorTilePrefab, topLeftPoint, Quaternion.identity);
-                firstTile.SwitchToBuildingValidMaterial();
-            }
-
-            firstTile.transform.position = topLeftPoint;
+            currentBuildData.firstTilePosition = topLeftPoint;
+            SpawnAndMoveFirstTile();
         }
         else // player has indicated where the floor starts already
         {
-            Vector3 currentGrid = RoundToNearestGrid(GroundLocationUnderMouse);
-            if (currentGrid.y >= 500) return;
-            if (currentGrid != botttomRightPoint)
+            DeterminRoomSize();
+            SpawnCurrentPlacement();
+        }
+    }
+
+    private void SpawnAndMoveFirstTile()
+    {
+        Vector3 postion = currentBuildData.firstTilePosition;
+        if (postion == Vector3.zero) return;
+
+        if (postion.y >= 500) return;
+
+        if (firstTile == null)
+        {
+            firstTile = Instantiate(currentRoom.Config.FloorTilePrefab, postion, Quaternion.identity);
+            firstTile.SwitchToBuildingValidMaterial();
+            
+        }
+
+        firstTile.transform.position = postion;
+        //print("firstTile.transform.position = " + firstTile.transform.position.ToString());
+    }
+
+    private void DeterminRoomSize()
+    {
+        Vector3 currentGrid = RoundToNearestGrid(GroundLocationUnderMouse);
+        if (currentGrid.y >= 500) return;
+        if (currentGrid != botttomRightPoint)
+        {
+            botttomRightPoint = currentGrid;
+
+
+            int columns;
+            int rows;
+
+            if (botttomRightPoint.x > topLeftPoint.x)
+                columns = (int)((botttomRightPoint.x - topLeftPoint.x) / TileSize.x);
+            else
+                columns = (int)((topLeftPoint.x - botttomRightPoint.x) / TileSize.x);
+
+            if (botttomRightPoint.z < topLeftPoint.z)
+                rows = (int)((topLeftPoint.z - botttomRightPoint.z) / TileSize.y);
+            else
+                rows = (int)((botttomRightPoint.z - topLeftPoint.z) / TileSize.y);
+
+            currentBuildData.size = new Vector2(columns + 1, rows + 1);
+
+            if (botttomRightPoint.x < topLeftPoint.x) currentBuildData.firstTilePosition.x = botttomRightPoint.x;
+            if (botttomRightPoint.z > topLeftPoint.z) currentBuildData.firstTilePosition.y = botttomRightPoint.z;
+
+            if (firstTile.transform.position == currentBuildData.firstTilePosition) DestroyFirstTile();
+        }
+    }
+
+    private void SpawnCurrentPlacement()
+    {
+        if (firstTile == null) SpawnAndMoveFirstTile();
+
+        int columns = (int)currentBuildData.size.x - 1;
+        int rows = (int)currentBuildData.size.y - 1;
+
+        DestroyCurrentPlacement();
+        for (int currentCol = 0; currentCol <= columns; currentCol++)
+        {
+            for (int currentRow = 0; currentRow <= rows; currentRow++)
             {
-                botttomRightPoint = currentGrid;
+                if (currentCol == 0 && currentRow == 0) continue;
 
-                foreach (FloorTile tile in currentPlacement.ToArray())
-                {
-                    //print("Destroying " + tile.transform.position.ToString());
-                    Destroy(tile.gameObject);
-                }
-                currentPlacement.Clear();
+                Vector3 position = firstTile.transform.position;
+                position.x += TileSize.x * currentCol;
+                position.z -= TileSize.y * currentRow;
 
-                int columns;
-                int rows;
-
-                if (botttomRightPoint.x > topLeftPoint.x)
-                    columns = (int)((botttomRightPoint.x - topLeftPoint.x) / TileSize.x);
-                else
-                    columns = (int)((topLeftPoint.x - botttomRightPoint.x) / TileSize.x);
-
-                if (botttomRightPoint.z < topLeftPoint.z)
-                    rows = (int)((topLeftPoint.z - botttomRightPoint.z) / TileSize.y);
-                else
-                    rows = (int)((botttomRightPoint.z - topLeftPoint.z) / TileSize.y);
-
-                currentRoomSize = new Vector2(columns + 1 , rows + 1);
-
-                for (int currentCol = 0; currentCol <= columns; currentCol++)
-                {
-                    for (int currentRow = 0; currentRow <= rows; currentRow++)
-                    {
-                        if (currentCol == 0 && currentRow == 0) continue;
-
-                        Vector3 position = firstTile.transform.position;
-                        if (botttomRightPoint.x > topLeftPoint.x) position.x += TileSize.x * currentCol;
-                        else position.x -= TileSize.x * currentCol;
-                        if (botttomRightPoint.z < topLeftPoint.z) position.z -= TileSize.y * currentRow;
-                        else position.z += TileSize.y * currentRow;
-
-                        FloorTile newTile = Instantiate(currentRoom.Config.FloorTilePrefab, position, Quaternion.identity);
-                        newTile.SwitchToBuildingValidMaterial();
-                        currentPlacement.Add(newTile);
-                    }
-                }
-
-                if (PlacementIsValid)
-                {
-                    firstTile.SwitchToBuildingValidMaterial();
-                    foreach (FloorTile tile in currentPlacement)
-                    {
-                        tile.SwitchToBuildingValidMaterial();
-                    }
-                }
-                else
-                {
-                    firstTile.SwitchToBuildingInvalidMaterial();
-                    foreach (FloorTile tile in currentPlacement)
-                    {
-                        tile.SwitchToBuildingInvalidMaterial();
-                    }
-                }
+                FloorTile newTile = Instantiate(currentRoom.Config.FloorTilePrefab, position, Quaternion.identity);
+                newTile.SwitchToBuildingValidMaterial();
+                currentPlacement.Add(newTile);
             }
+        }
+        SetWallSideOnPlacement();
+
+        if (PlacementIsValid)
+        {
+            firstTile.SwitchToBuildingValidMaterial();
+            foreach (FloorTile tile in currentPlacement)
+            {
+                tile.SwitchToBuildingValidMaterial();
+            }
+        }
+        else
+        {
+            firstTile.SwitchToBuildingInvalidMaterial();
+            foreach (FloorTile tile in currentPlacement)
+            {
+                tile.SwitchToBuildingInvalidMaterial();
+            }
+        }
+    }
+
+    private void DestroyFirstTile()
+    {
+        if (firstTile != null)
+        {
+            Destroy(firstTile.gameObject);
+            firstTile = null;
+        }
+    }
+
+    private void DestroyCurrentPlacement()
+    {
+        foreach (FloorTile tile in currentPlacement.ToArray())
+        {
+            Destroy(tile.gameObject);
+        }
+        currentPlacement.Clear();
+    }
+
+    private void EditFloorUpdate()
+    {
+        if (selectedWallSide == EWallSide.NoWall) return;
+
+        Vector3 currentGrid = RoundToNearestGrid(GroundLocationUnderMouse);
+        if (currentGrid.y >= 500) return;
+        if (currentGrid != botttomRightPoint)
+        {
+            botttomRightPoint = currentGrid;
+
+            float xDif = (botttomRightPoint.x - topLeftPoint.x) / TileSize.x;
+            float zDif = (topLeftPoint.z - botttomRightPoint.z) / TileSize.y;
+
+            switch (selectedWallSide)
+            {
+                case EWallSide.RightWall:
+                    currentBuildData.size.x = tempBuildData.size.x + xDif;
+                    break;
+
+                case EWallSide.LeftWall:
+                    xDif *= -1;
+                    currentBuildData.size.x = tempBuildData.size.x + xDif;
+                    currentBuildData.firstTilePosition.x = tempBuildData.firstTilePosition.x - (xDif * TileSize.x);
+                    break;
+
+                case EWallSide.BottomWall:
+                    currentBuildData.size.y = tempBuildData.size.y + zDif;
+                    break;
+
+                case EWallSide.TopWall:
+                    currentBuildData.size.y = tempBuildData.size.y - zDif;
+                    currentBuildData.firstTilePosition.z = tempBuildData.firstTilePosition.z - (zDif * TileSize.y);
+                    break;
+            }
+
+            DestroyAllPlacement();
+            SpawnCurrentPlacement();
         }
     }
 
@@ -158,11 +285,18 @@ public class StationFloorBuilder : MonoBehaviour
         Game.Input.OnPrimaryPress += PlaceFirstTile;
         Game.Input.OnSecondaryPress += CancelPlacement;
 
+        Game.Selection.DeselectRoom();
+
+        previousCost = 0;
+
         currentRoom = Instantiate(roomPrefab, Vector3.zero, Quaternion.identity);
         currentRoom.Initialize(config);
+
         if (Game.Tutorial.ListentingForFloorBuildStart) Game.Tutorial.RoomBuiltStarted(config);
 
-        Game.Selection.DeselectRoom();
+        currentBuildData = FloorBuildData.Empty;
+        previousBuildData = FloorBuildData.Empty;
+
         UI.ShowFloorPlacementInfo();
     }
 
@@ -206,32 +340,76 @@ public class StationFloorBuilder : MonoBehaviour
 
     private void PlaceFirstTile()
     {
-        currentRoomSize = new Vector2(1, 1);
+        currentBuildData.firstTilePosition = firstTile.transform.position;
+        //print("PlaceFirstTile() firstTilePosition = " + currentBuildData.firstTilePosition.ToString());
+        currentBuildData.size = new Vector2(1, 1);
         Game.Input.OnPrimaryPress -= PlaceFirstTile;
-        Game.Input.OnPrimaryRelease += CompletePlacement;
+        Game.Input.OnPrimaryRelease += PlacementFinished;
         botttomRightPoint = topLeftPoint;
     }
 
-    private void CompletePlacement()
+    public void BeginEditMode(RoomObject roomToEdit)
     {
-        Game.Input.OnPrimaryRelease -= CompletePlacement;
+        inEditingMode = true;
+        currentRoom = roomToEdit;
+        previousCost = CostOfPlacement;
+        currentBuildData.firstTilePosition = currentRoom.Floor[0].transform.position;
+        currentBuildData.size = currentRoom.RoomSize;
+        previousBuildData = currentBuildData;
+
+        Station.RemoveRoom(currentRoom);
+        currentRoom.RemoveWalls();
+        currentRoom.ClearFloor();
+        DestroyAllPlacement();
+        SpawnCurrentPlacement();
 
 
-        if (PlacementIsValid && canAffordPlacement)
+        Game.Input.OnPrimaryPress += TrySelectWall;
+
+        UI.ShowFloorPlacementInfo();
+    }
+
+    private void PlacementFinished()
+    {
+        Game.Input.OnPrimaryRelease -= PlacementFinished;
+
+        if (PlacementIsValid && CanAffordPlacement)
         {
-            //Game.Input.OnSecondaryPress -= CancelPlacement;
+            inEditingMode = true;
+            currentRoom.SetRoomSize(CurrentRoomSize);
+
+            Game.Input.OnPrimaryPress += TrySelectWall;
+        }
+
+        else
+        {
+            DestroyAllPlacement();
+            Game.Input.OnPrimaryPress += PlaceFirstTile;
+        }
+    }
+
+    public void CompletePlacement()
+    {
+        //Game.Input.OnPrimaryRelease -= CompletePlacement;
+
+
+        if (PlacementIsValid && CanAffordPlacement)
+        {
+            Game.Input.OnSecondaryPress -= CancelPlacement;
+            Game.Input.OnPrimaryPress -= TrySelectWall;
 
             Station.Money.Remove(costOfPlacement);
-            Game.Debug.RoomCosts.Add(currentRoom, costOfPlacement);
 
-            //firstTile.SwitchToBuitMaterial();
+            if (Game.Debug.RoomCosts.ContainsKey(currentRoom))
+                Game.Debug.RoomCosts[CurrentRoom] = costOfPlacement;
+            else
+                Game.Debug.RoomCosts.Add(currentRoom, costOfPlacement);
+
+            currentRoom.SetRoomSize(CurrentRoomSize);
             currentRoom.AddFloorTile(firstTile);
             firstTile = null;
             foreach (FloorTile tile in currentPlacement)
-            {
-                //tile.SwitchToBuitMaterial();
                 currentRoom.AddFloorTile(tile);
-            }
             currentPlacement.Clear();
 
             Station.AddRoom(currentRoom);
@@ -243,12 +421,15 @@ public class StationFloorBuilder : MonoBehaviour
                 {
                     AutoDoorwayPlacement();
                     BuildNavMesh();
-                    if (Game.Debug.RoomsBuilt.ContainsKey(currentRoom.Config))
+                    /*if (Game.Debug.RoomsBuilt.ContainsKey(currentRoom.Config))
                         Game.Debug.RoomsBuilt[currentRoom.Config]++;
                     else
-                        Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);
+                        Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);*/
                     Game.Selection.SelectRoom(currentRoom);
                     currentRoom = null;
+                    currentBuildData = FloorBuildData.Empty;
+                    tempBuildData = FloorBuildData.Empty;
+                    previousBuildData = FloorBuildData.Empty;
                     UI.Sound.PlayPlaceFloorSound();
                     Game.Input.OnSecondaryPress -= CancelPlacement;
                 }
@@ -261,37 +442,35 @@ public class StationFloorBuilder : MonoBehaviour
             else
             {
                 BuildNavMesh();
-                if (Game.Debug.RoomsBuilt.ContainsKey(currentRoom.Config))
+                /*if (Game.Debug.RoomsBuilt.ContainsKey(currentRoom.Config))
                     Game.Debug.RoomsBuilt[currentRoom.Config]++;
                 else
-                    Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);
+                    Game.Debug.RoomsBuilt.Add(currentRoom.Config, 1);*/
                 Game.Selection.SelectRoom(currentRoom);
                 currentRoom = null;
+                currentBuildData = FloorBuildData.Empty;
+                tempBuildData = FloorBuildData.Empty;
+                previousBuildData = FloorBuildData.Empty;
                 UI.Sound.PlayPlaceFloorSound();
                 Game.Input.OnSecondaryPress -= CancelPlacement;
             }
 
             //AddWallsToCurrentRoom();
-
+            inEditingMode = false;
         }
 
         else
         {
-            if (firstTile != null)
-            {
-                Destroy(firstTile.gameObject);
-                firstTile = null;
-            }
-
-            foreach (FloorTile tile in currentPlacement.ToArray())
-            {
-                Destroy(tile.gameObject);
-            }
-            currentPlacement.Clear();
-
+            DestroyAllPlacement();
             Game.Input.OnPrimaryPress += PlaceFirstTile;
         }
         
+    }
+
+    private void DestroyAllPlacement()
+    {
+        DestroyFirstTile();
+        DestroyCurrentPlacement();
     }
 
     private void AutoDoorwayPlacement()
@@ -357,30 +536,41 @@ public class StationFloorBuilder : MonoBehaviour
             Station.NavMeshSurface.BuildNavMesh();
     }
 
-    private void CancelPlacement()
+    public void CancelPlacement()
     {
         Game.Input.OnSecondaryPress -= CancelPlacement;
-
-        if (firstTile != null)
-        {
-            Destroy(firstTile.gameObject);
-            firstTile = null;
-        }
-
+        
         if (Game.Input.PrimaryButtonDown)
-            Game.Input.OnPrimaryRelease -= CompletePlacement;
-        else
+            Game.Input.OnPrimaryRelease -= PlacementFinished;
+        else if (firstTile != null)
             Game.Input.OnPrimaryPress -= PlaceFirstTile;
 
-        foreach (FloorTile tile in currentPlacement.ToArray())
-            Destroy(tile.gameObject);
-        currentPlacement.Clear();
+        DestroyAllPlacement();
 
-        Game.Selection.DeselectRoom();
-        Destroy(currentRoom.gameObject);
+        if (previousBuildData.IsEmpty)
+        {
+            Destroy(currentRoom.gameObject);
+        }
+        else
+        {
+            currentBuildData = previousBuildData;
+            SpawnCurrentPlacement();
+            currentRoom.AddFloorTile(firstTile);
+            firstTile = null;
+            foreach (FloorTile tile in currentPlacement)
+                currentRoom.AddFloorTile(tile);
+            currentPlacement.Clear();
+            Station.AddRoom(currentRoom);
+            Game.Selection.SelectRoom(currentRoom);
+        }
+
+        Game.Input.OnPrimaryPress -= TrySelectWall;
         UI.Sound.PlayButtonCancelSound();
         currentRoom = null;
-        //placing = false;
+        currentBuildData = FloorBuildData.Empty;
+        tempBuildData = FloorBuildData.Empty;
+        previousBuildData = FloorBuildData.Empty;
+        inEditingMode = false;
     }
 
     private List<RoomObject> RoomsTouchingTile(FloorTile tile)
@@ -454,19 +644,19 @@ public class StationFloorBuilder : MonoBehaviour
         }
     }
 
-    private bool PlacementIsValid
+    public bool PlacementIsValid
     {
         get
         {
             if (firstTile == null || currentPlacement.Count == 0) return false;
 
-            if (currentRoomSize.x < currentRoom.Config.MinimumSize.x)
+            if (CurrentRoomSize.x < currentRoom.Config.MinimumSize.x)
             {
                 //Debug.LogWarning("Room width too small");
                 return false;
             }
 
-            if (currentRoomSize.y < currentRoom.Config.MinimumSize.y)
+            if (CurrentRoomSize.y < currentRoom.Config.MinimumSize.y)
             {
                 //Debug.LogWarning("Room height too small");
                 return false;
@@ -615,7 +805,7 @@ public class StationFloorBuilder : MonoBehaviour
         tile.ApplyPillers();
     }
 
-    private bool canAffordPlacement
+    public bool CanAffordPlacement
     {
         get
         {
@@ -629,7 +819,7 @@ public class StationFloorBuilder : MonoBehaviour
         get
         {
             if (firstTile == null) return 0;
-            return currentRoom.Config.Cost(1 + currentPlacement.Count);
+            return currentRoom.Config.Cost(1 + currentPlacement.Count)/* - previousCost*/;
         }
     }
 
@@ -720,5 +910,166 @@ public class StationFloorBuilder : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void TrySelectWall()
+    {
+        if (UI.MouseOverUI == true)
+        {
+            Debug.LogWarning("TrySelectWall UI.MouseOverUI == true");
+            return;
+        }
+
+        Vector3 clickLocation = RoundToNearestGrid(GroundLocationUnderMouse);
+        //Debug.Log("TrySelectWall at = " + clickLocation.ToString());
+        FloorTile tileUnderMouse = TileAtLocation(clickLocation);
+
+        if (tileUnderMouse != null && tileUnderMouse.IsEdgeTile)
+        {
+            if (tileUnderMouse.TopEdge) selectedWallSide = EWallSide.TopWall;
+            else if (tileUnderMouse.BottomEdge) selectedWallSide= EWallSide.BottomWall;
+            else if (tileUnderMouse.LeftEdge) selectedWallSide = EWallSide.LeftWall;
+            else if (tileUnderMouse.RightEdge) selectedWallSide = EWallSide.RightWall;
+
+            Game.Input.OnPrimaryRelease += StopHoldingWall;
+
+            topLeftPoint = tileUnderMouse.transform.position;
+            botttomRightPoint = topLeftPoint;
+            tempBuildData = currentBuildData;
+        }
+
+        else if (tileUnderMouse != null)
+        {
+            Debug.Log("Tile is not edge");
+        }
+    }
+
+    private void StopHoldingWall()
+    {
+        Game.Input.OnPrimaryRelease -= StopHoldingWall;
+        selectedWallSide = EWallSide.NoWall;
+        tempBuildData = currentBuildData;
+    }
+
+    private FloorTile TileAtLocation(Vector3 location)
+    {
+        if (firstTile == null)
+        {
+            Debug.LogWarning("First tile is null");
+            return null;
+        }
+        if (currentPlacement.Count == 0)
+        {
+            Debug.LogWarning("currentPlacement.Count == 0");
+            return null;
+        }
+
+        if (firstTile.transform.position == location) return firstTile;
+
+        foreach (FloorTile tile in currentPlacement)
+        {
+            if (tile.transform.position == location)
+            {
+                return tile;
+            }
+        }
+
+        return null;
+    }
+
+    private Vector2 LocalTilePosition(FloorTile tile)
+    {
+        return new Vector2(tile.x - firstTile.x, tile.z - firstTile.z);
+    }
+
+    private EWallSide TileWallSide(FloorTile tile)
+    {
+        Vector2 localPosition = LocalTilePosition(tile);
+
+        if (localPosition.x == 0) return EWallSide.LeftWall;
+        else if (localPosition.x == CurrentRoomSize.x) return EWallSide.RightWall;
+        else if (localPosition.y == CurrentRoomSize.y) return EWallSide.BottomWall;
+        else if (localPosition.y == 0) return EWallSide.TopWall;
+
+        return EWallSide.NoWall;
+    }
+
+    List<FloorTile> currentPlacementAll
+    {
+        get
+        {
+            List<FloorTile> list = new List<FloorTile>();
+
+            list.Add(firstTile);
+
+            foreach (FloorTile tile in currentPlacement)
+            {
+                list.Add(tile);
+            }
+
+            return list;
+        }
+    }
+
+    private void SetWallSideOnPlacement()
+    {
+        if (currentPlacementAll.Count == 0) return;
+
+        float lowestX = float.MaxValue;
+        float highestX = float.MinValue;
+        float lowestZ = float.MaxValue;
+        float highestZ = float.MinValue;
+
+        foreach (FloorTile tile in currentPlacementAll)
+        {
+            if (tile.x < lowestX) lowestX = tile.x;
+            else if (tile.x > highestX) highestX = tile.x;
+
+            if (tile.z < lowestZ) lowestZ = tile.z;
+            else if (tile.z > highestZ) highestZ = tile.z;
+        }
+
+        foreach (FloorTile tile in currentPlacementAll)
+        {
+            tile.ClearEdges();
+
+            if (tile.x == lowestX)
+            {
+                tile.LeftEdge = true;
+            }
+            else if (tile.x == highestX)
+            {
+                tile.RightEdge = true;
+            }
+
+            if (tile.z == lowestZ)
+            {
+                tile.BottomEdge = true;
+            }
+            else if (tile.z == highestZ)
+            {
+                tile.TopEdge = true;
+            }
+        }
+    }
+
+    private void SelectTopEdge()
+    {
+
+    }
+
+    private void SelectBottomEdge()
+    {
+
+    }
+
+    private void SelectLeftEdge()
+    {
+
+    }
+
+    private void SelectRightEdge()
+    {
+
     }
 }
