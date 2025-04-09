@@ -56,6 +56,7 @@ MonoBehaviour:
   shipManager: {fileID: 3948505909498453564}
   staffManager: {fileID: 3144336279122102200}
   customerManager: {fileID: 6879815528351363787}
+  stationSupplies: {fileID: 3481316128397950674}
   roomTransform: {fileID: 2602062147614198937}
   placeableObjects: []
   landingPads: []
@@ -115,6 +116,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfa490153e4db141a9d00f6aa278135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialSupplies:
+  - Type: 1
+    Amount: 10000
+  - Type: 2
+    Amount: 500
+  SupplyCosts:
+  - Type: 1
+    Amount: 1
+  - Type: 2
+    Amount: 20
+  <Supplies>k__BackingField: []
 --- !u!1 &8461847238580088704
 GameObject:
   m_ObjectHideFlags: 0

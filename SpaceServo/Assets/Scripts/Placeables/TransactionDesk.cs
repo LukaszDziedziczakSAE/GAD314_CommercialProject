@@ -57,14 +57,24 @@ public class TransactionDesk : PlaceableObject
 
         if (Room.Config.Type == global::Room.EType.FuelPurchase)
         {
-            CurrentCustomer.Ship.BeginRefueling();
-            Station.Money.Add((int)(CurrentCustomer.Ship.RequiredFuel * unitBuyPrice));
-            ShowMoneyIndicator((int)(CurrentCustomer.Ship.RequiredFuel * unitBuyPrice));
+            if (Station.Supplies.TryCustomerPurchasedSupply(Room.Config.SupplyType, (int)CurrentCustomer.Ship.RequiredFuel))
+            {
+                Station.Money.Add((int)(CurrentCustomer.Ship.RequiredFuel * unitBuyPrice));
+                CurrentCustomer.Ship.BeginRefueling();
+                ShowMoneyIndicator((int)(CurrentCustomer.Ship.RequiredFuel * unitBuyPrice));
+            }
+            else
+                Debug.LogError("Unable to TryCustomerPurchasedSupply");
         }
         else
         {
-            Station.Money.Add(unitBuyPrice);
-            ShowMoneyIndicator(unitBuyPrice);
+            if (Station.Supplies.TryCustomerPurchasedSupply(Room.Config.SupplyType))
+            {
+                Station.Money.Add(unitBuyPrice);
+                ShowMoneyIndicator(unitBuyPrice);
+            }
+            else
+                Debug.LogError("Unable to TryCustomerPurchasedSupply");
         }
 
         if (Sound == null) Sound = GetComponent<A_TransactionDesk>();

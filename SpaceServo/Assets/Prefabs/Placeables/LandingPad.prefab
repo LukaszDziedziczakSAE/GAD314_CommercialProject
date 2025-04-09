@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f832f56345116429bd1c5aa256574f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refuelRate: 20
+  refuelRate: 14
 --- !u!54 &1171316196782024871
 Rigidbody:
   m_ObjectHideFlags: 0

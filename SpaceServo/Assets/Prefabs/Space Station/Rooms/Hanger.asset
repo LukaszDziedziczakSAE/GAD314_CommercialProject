@@ -15,6 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: Hanger
   <Description>k__BackingField: Where ships come to land
   <Type>k__BackingField: 1
+  <SupplyType>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 2800000, guid: be4724067e6375543af878f13cdbebfe, type: 3}
   <FloorTilePrefab>k__BackingField: {fileID: 2897276872064168506, guid: f04186c477e0b774385ae4183413941a, type: 3}
   <Placeables>k__BackingField:

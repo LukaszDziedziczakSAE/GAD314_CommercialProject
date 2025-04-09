@@ -486,9 +486,9 @@ MonoBehaviour:
   <TransactionBaseTime>k__BackingField: 1.5
   CurrentCustomer: {fileID: 0}
   CustomerQueue: []
-  MaxQueueSize: 3
+  MaxQueueSize: 4
   StaffMember: {fileID: 0}
-  unitBuyPrice: 1
+  unitBuyPrice: 2
   <Indicator>k__BackingField: {fileID: 5576014417310890762}
   <SatisfactionChange>k__BackingField: 10
   <Sound>k__BackingField: {fileID: 7948729426320844774}

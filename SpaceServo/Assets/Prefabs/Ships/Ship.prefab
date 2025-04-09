@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Amount>k__BackingField: 0
-  <MaxAmount>k__BackingField: 1000
+  <MaxAmount>k__BackingField: 350
   initialRange: {x: 50, y: 200}
 --- !u!114 &8493317720518304940
 MonoBehaviour:

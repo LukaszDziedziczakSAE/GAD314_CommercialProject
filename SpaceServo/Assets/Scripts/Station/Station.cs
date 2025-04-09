@@ -137,6 +137,7 @@ public class Station : MonoBehaviour
         foreach (RoomObject room in Rooms)
         {
             if (room.Config.Type == Room.EType.None
+                && room.HaveSuppliesForCustomer()
                 && room.HasFreeSlots)
             {
                 interactableRoom = room;

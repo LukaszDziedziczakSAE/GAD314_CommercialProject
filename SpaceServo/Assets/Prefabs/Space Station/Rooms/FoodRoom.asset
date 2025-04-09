@@ -15,7 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: Food Area
   <Description>k__BackingField: Place where customers can get food
   <Type>k__BackingField: 0
-  <Icon>k__BackingField: {fileID: 2800000, guid: 6e14512de27ac7540b822a6ceee2158f, type: 3}
+  <SupplyType>k__BackingField: 2
+  <Icon>k__BackingField: {fileID: 2800000, guid: 7a8cf7ae3ea75154290385022ba21216, type: 3}
   <FloorTilePrefab>k__BackingField: {fileID: 6728747206718318317, guid: 8f8a5331ca17dd14aaccf01a46742a1a, type: 3}
   <Placeables>k__BackingField:
   - {fileID: 11400000, guid: 7319bbd2d6de66e4caa6f6a444434dfe, type: 2}
@@ -23,3 +24,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9084fb09a7ee6e54e8d4b3a0a53b6caf, type: 2}
   <BasePrice>k__BackingField: 100
   <CostPerTile>k__BackingField: 10
+  <MinimumSize>k__BackingField: {x: 1, y: 1}

@@ -246,4 +246,35 @@ public class RoomObject : MonoBehaviour
         }
         Floor.Clear();
     }
+
+    public int AvailableSupplies
+    {
+        get
+        {
+            return Station.Supplies.SupplyOf(Config.SupplyType);
+        }
+    }
+
+    public int MaxAvailableSupplies
+    {
+        get
+        {
+            return Station.Supplies.MaxSupplyOf(Config.SupplyType);
+        }
+    }
+
+    public bool HaveSuppliesForCustomer(int amount = 1)
+    {
+        return AvailableSupplies >= amount;
+    }
+
+    public bool PurchaseSupplies(int amount = 1)
+    {
+        return Station.Supplies.TryPurchaseSupplyForStation(Config.SupplyType, amount);
+    }
+
+    public bool UseSupplies(int amount = 1)
+    {
+        return Station.Supplies.TryCustomerPurchasedSupply(Config.SupplyType, amount);
+    }
 }

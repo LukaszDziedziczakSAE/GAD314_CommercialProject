@@ -36,7 +36,7 @@ public class UI_Objectives : MonoBehaviour
     {
         foreach(UI_ObjectivesItem item in list)
         {
-            Destroy(item.gameObject);
+            if (item != null) Destroy(item.gameObject);
         }
         list.Clear();
     }

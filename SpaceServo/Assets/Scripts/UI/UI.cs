@@ -20,6 +20,7 @@ public class UI : MonoBehaviour
     [SerializeField] private UI_WinScreen winScreen;
     [SerializeField] private UI_FloorPlacementInfo floorPlacementInfo;
     [SerializeField] private A_UISounds uISounds;
+    [SerializeField] private UI_Resupply resupply;
 
     public static bool MouseOverUI;
 
@@ -147,5 +148,10 @@ public class UI : MonoBehaviour
     {
         Instance.floorPlacementInfo.gameObject.SetActive(show);
         Instance.objectives.gameObject.SetActive(!show);
+    }
+
+    public static void ShowResupply(bool show = true)
+    {
+        Instance.resupply.gameObject.SetActive(show);
     }
 }

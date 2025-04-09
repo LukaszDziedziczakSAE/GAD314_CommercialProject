@@ -198,6 +198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 8247043624218162691, guid: 79f3c70120209b841aae2b703f78eb3e, type: 3}
+      propertyPath: TurnOffTutorial
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

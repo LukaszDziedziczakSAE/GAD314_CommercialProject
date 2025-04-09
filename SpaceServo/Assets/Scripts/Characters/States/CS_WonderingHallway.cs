@@ -24,6 +24,7 @@ public class CS_WonderingHallway : CustomerState
         }
 
         else if (!customer.HasRefueled && !customer.Ship.LandingPad.IsRefueling
+            && Station.Supplies.HaveSupplyOf(StationSupplies.ESupplyType.Fuel, (int)customer.Ship.RequiredFuel)
             && Station.TryGetFuelPurchaseRoom(out RoomObject fuelPurchaseRoom)
             && !customer.Info.RoomsVisited.Contains(fuelPurchaseRoom))
         {

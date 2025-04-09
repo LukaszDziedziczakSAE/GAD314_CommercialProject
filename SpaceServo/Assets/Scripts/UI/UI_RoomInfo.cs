@@ -8,12 +8,15 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] TMP_Text roomNameText;
     [SerializeField] Button closeButton;
-    [SerializeField] Button addFloorButton;
     [SerializeField] Button addPlaceableButton;
     [SerializeField] Button destroyRoomButton;
     [SerializeField] Button editRoomButton;
     [SerializeField] Transform content;
     [SerializeField] UI_RoomInfo_Placeable placeablePrefab;
+    [SerializeField] Button purchaseSuppliesButton;
+    [SerializeField] TMP_Text suppliesText;
+    [SerializeField] RectTransform suppliesProgress;
+    [SerializeField] GameObject suppliesBox;
 
     RoomObject room => Game.Selection.Room;
     List<GameObject> listItems = new List<GameObject>();
@@ -28,11 +31,10 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         closeButton.onClick.AddListener(OnCloseButtonPress);
         destroyRoomButton.onClick.AddListener(OnDestoryButtonPress);
-        UpdateUI();
-
-        addFloorButton.interactable = false;
         addPlaceableButton.onClick.AddListener(OnAddPlaceableButtonPress);
         editRoomButton.onClick.AddListener(OnEditRoomButonPress);
+        purchaseSuppliesButton.onClick.AddListener(OnPurchaseSuppliesButtonPress);
+        UpdateUI();
     }
 
     public void UpdateUI()
@@ -54,6 +56,14 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             listItems.Add(placeableInfoItem.gameObject);
             placeableInfoItem.Initilize(placeable);
         }
+
+        suppliesBox.SetActive(room.Config.SupplyType != StationSupplies.ESupplyType.NoSupplies);
+        purchaseSuppliesButton.gameObject.SetActive(room.Config.SupplyType != StationSupplies.ESupplyType.NoSupplies);
+        if (room.Config.SupplyType != StationSupplies.ESupplyType.NoSupplies)
+        {
+            suppliesText.text = room.Config.SupplyType.ToString() + " " + room.AvailableSupplies + " / " + room.MaxAvailableSupplies;
+            suppliesProgress.localScale = new Vector3(((float)room.AvailableSupplies / (float)room.MaxAvailableSupplies), 1, 1);
+        }
     }
 
     private void OnDisable()
@@ -62,6 +72,7 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         addPlaceableButton.onClick.RemoveAllListeners();
         destroyRoomButton.onClick.RemoveListener(OnDestoryButtonPress);
         editRoomButton.onClick.RemoveListener(OnEditRoomButonPress);
+        purchaseSuppliesButton.onClick.AddListener(OnPurchaseSuppliesButtonPress);
     }
 
 
@@ -77,12 +88,14 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void OnCloseButtonPress()
     {
+        UI.Sound.PlayButtonCancelSound();
         Game.Selection.DeselectRoom();
         UI.MouseOverUI = false;
     }
 
     private void OnAddPlaceableButtonPress()
     {
+        UI.Sound.PlayButtonPressSound();
         UI.ShowPlaceablesMenu();
     }
 
@@ -96,8 +109,15 @@ public class UI_RoomInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void OnEditRoomButonPress()
     {
+        UI.Sound.PlayButtonPressSound();
         UI.MouseOverUI = false;
         Game.FloorBuilder.BeginEditMode(room);
         Game.Selection.DeselectRoom();
+    }
+
+    private void OnPurchaseSuppliesButtonPress()
+    {
+        UI.Sound.PlayButtonPressSound();
+        UI.ShowResupply();
     }
 }
