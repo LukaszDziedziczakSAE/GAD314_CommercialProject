@@ -265,6 +265,7 @@ public class RoomObject : MonoBehaviour
 
     public bool HaveSuppliesForCustomer(int amount = 1)
     {
+        if (Config.SupplyType == StationSupplies.ESupplyType.NoSupplies) return true;
         return AvailableSupplies >= amount;
     }
 

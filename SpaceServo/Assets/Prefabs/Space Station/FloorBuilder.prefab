@@ -54,11 +54,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 442e93dfaf513b7429e5450890e87b1f, type: 2}
   - {fileID: 11400000, guid: 9228fd544f50f2e4c85868a38e420161, type: 2}
   - {fileID: 11400000, guid: bfcb12dd48304ed48a90f22ffbed8145, type: 2}
-  - {fileID: 11400000, guid: 945adb73be58c8d488fd7606e266665c, type: 2}
+  - {fileID: 11400000, guid: 7361fe08a00e8ec46967605c31694bf7, type: 2}
+  - {fileID: 11400000, guid: 23d146beefd5c9e4e872c3b49c8bcd9c, type: 2}
   firstTile: {fileID: 0}
   currentPlacement: []
   currentRoom: {fileID: 0}
-  currentRoomSize: {x: 0, y: 0}
+  currentBuildData:
+    firstTilePosition: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0}
+  tempBuildData:
+    firstTilePosition: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0}
+  previousBuildData:
+    firstTilePosition: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0}
 --- !u!1 &6814112123061389956
 GameObject:
   m_ObjectHideFlags: 0

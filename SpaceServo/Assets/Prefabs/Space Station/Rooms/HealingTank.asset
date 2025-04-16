@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0f600c9282f1b42a23fd9a3a2051c7, type: 3}
+  m_Name: HealingTank
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Healing Tanks
+  <Description>k__BackingField: A room where customers get medical treatment
+  <Type>k__BackingField: 0
+  <SupplyType>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 0}
+  <FloorTilePrefab>k__BackingField: {fileID: 2897276872064168506, guid: a59e6814ac8c9074ab902afb15919038, type: 3}
+  <Placeables>k__BackingField:
+  - {fileID: 11400000, guid: dbb7576a856fd4c499b5e96747eec95a, type: 2}
+  - {fileID: 11400000, guid: c1723e4e95a8c544190e49c7f524f5ba, type: 2}
+  <BasePrice>k__BackingField: 100
+  <CostPerTile>k__BackingField: 10
+  <MinimumSize>k__BackingField: {x: 1, y: 1}

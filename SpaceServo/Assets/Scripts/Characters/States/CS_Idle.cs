@@ -26,14 +26,15 @@ public class CS_Idle : CustomerState
     public override void StateTick()
     {
         if (!customer.HasRefueled && !customer.Ship.LandingPad.IsRefueling
+            && Station.Supplies.HaveSupplyOf(StationSupplies.ESupplyType.Fuel, (int)customer.Ship.RequiredFuel)
             && Station.TryGetFuelPurchaseRoom(out RoomObject fuelPurchaseRoom)
             && !customer.Info.RoomsVisited.Contains(fuelPurchaseRoom))
         {
             customer.SetNewState(new CS_MovingToRoom(customer, fuelPurchaseRoom));
         }
 
-        else if (!customer.HasRefueled && customer.Ship.LandingPad.IsRefueling
-            && Station.TryGetInteractableRoom(out RoomObject interactableRoom)
+        else if (/*!customer.HasRefueled && customer.Ship.LandingPad.IsRefueling
+            &&*/ Station.TryGetInteractableRoom(out RoomObject interactableRoom)
             && !customer.Info.RoomsVisited.Contains(interactableRoom))
         {
             customer.SetNewState(new CS_MovingToRoom(customer, interactableRoom));

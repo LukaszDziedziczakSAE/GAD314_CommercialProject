@@ -370,10 +370,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FloorBuilder
       objectReference: {fileID: 0}
-    - target: {fileID: 5161753186093847426, guid: 462b237daad7a994aac6fff15ca864df, type: 3}
-      propertyPath: <RoomConfigs>k__BackingField.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7974507245301913370, guid: 462b237daad7a994aac6fff15ca864df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

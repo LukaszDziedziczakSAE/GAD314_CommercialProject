@@ -169,6 +169,18 @@ public class StationFloorBuilder : MonoBehaviour
             else
                 rows = (int)((botttomRightPoint.z - topLeftPoint.z) / TileSize.y);
 
+
+            Vector3 firstTilePos = firstTile.transform.position;
+            if (botttomRightPoint.x < topLeftPoint.x)
+            {
+                currentBuildData.firstTilePosition.x = botttomRightPoint.x;
+            }
+            if (botttomRightPoint.z > topLeftPoint.z)
+            {
+                currentBuildData.firstTilePosition.z = botttomRightPoint.z;
+            }
+            firstTile.transform.position = currentBuildData.firstTilePosition;
+
             currentBuildData.size = new Vector2(columns + 1, rows + 1);
 
             if (botttomRightPoint.x < topLeftPoint.x) currentBuildData.firstTilePosition.x = botttomRightPoint.x;
@@ -1051,25 +1063,5 @@ public class StationFloorBuilder : MonoBehaviour
                 tile.TopEdge = true;
             }
         }
-    }
-
-    private void SelectTopEdge()
-    {
-
-    }
-
-    private void SelectBottomEdge()
-    {
-
-    }
-
-    private void SelectLeftEdge()
-    {
-
-    }
-
-    private void SelectRightEdge()
-    {
-
     }
 }

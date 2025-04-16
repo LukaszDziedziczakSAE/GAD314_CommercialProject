@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 282ae53c1cf7c6d43b3aea3b4de603e0, type: 3}
-  m_Name: TrashCan
+  m_Name: CryoBed
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: -5340673530977438873, guid: c1a94ed8af21ae544bec0548cb8c59ae, type: 3}
-  <Name>k__BackingField: Trash can
-  <Cost>k__BackingField: 10
-  <Icon>k__BackingField: {fileID: 2800000, guid: 03767810d6e2eda40b07922bf3a8d003, type: 3}
+  <Prefab>k__BackingField: {fileID: 5226300716982497792, guid: 43ae594d1e171e848905ed1e38529dd3, type: 3}
+  <Name>k__BackingField: Cryo Bed
+  <Cost>k__BackingField: 250
+  <Icon>k__BackingField: {fileID: 2800000, guid: 3627dd7d948875741b6cbf482ec7d1bb, type: 3}

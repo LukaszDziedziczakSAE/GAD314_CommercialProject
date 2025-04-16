@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d0f600c9282f1b42a23fd9a3a2051c7, type: 3}
-  m_Name: FuelPurchaseRoom
+  m_Name: FuelPurchase
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Fuel Purchase Room
+  <Name>k__BackingField: Fuel Purchase
   <Description>k__BackingField: Where customers pay for fuel
   <Type>k__BackingField: 3
   <SupplyType>k__BackingField: 1

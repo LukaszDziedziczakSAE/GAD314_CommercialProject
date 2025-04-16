@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0f600c9282f1b42a23fd9a3a2051c7, type: 3}
   m_Name: FoodRoom
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Food Area
+  <Name>k__BackingField: Cafeteria
   <Description>k__BackingField: Place where customers can get food
   <Type>k__BackingField: 0
   <SupplyType>k__BackingField: 2
