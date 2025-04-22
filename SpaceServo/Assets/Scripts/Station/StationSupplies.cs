@@ -88,6 +88,8 @@ public class StationSupplies : MonoBehaviour
 
     public bool HaveSupplyOf(ESupplyType type, int amount = 1)
     {
+        if (type == ESupplyType.NoSupplies) return true;
+
         foreach (Supply supply in Supplies)
         {
             if (supply.Type == type) return supply.Amount >= amount;
@@ -105,6 +107,7 @@ public class StationSupplies : MonoBehaviour
 
     public bool TryCustomerPurchasedSupply(ESupplyType type, int amount = 1)
     {
+        if (type == ESupplyType.NoSupplies) return true;
         if (HaveSupplyOf(type, amount))
         {
             for(int i = 0; i < Supplies.Count; i++)

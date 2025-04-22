@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac5c00e4aaf47844af3241552680e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TurnOffTutorial: 0
   <Parts>k__BackingField:
   - <TutorialText>k__BackingField: Welcome to Space Servo
     <Type>k__BackingField: 0
@@ -59,7 +60,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: dad2e2e850d64d842a75e1ffc1f2ca7c, type: 3}
-  - <TutorialText>k__BackingField: Click the Build Floor Button
+  - <TutorialText>k__BackingField: Click the flashing Build Floor Button
     <Type>k__BackingField: 2
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -72,7 +73,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 5d407bebdb7d48c449e85e554e0c265a, type: 3}
-  - <TutorialText>k__BackingField: Click Hanger
+  - <TutorialText>k__BackingField: Click Hanger flashing in the menu
     <Type>k__BackingField: 3
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -85,7 +86,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 8f7f654ba36790f43a11330ddb098aa4, type: 2}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 81d574d0cb3092b43bd73521df791f59, type: 3}
-  - <TutorialText>k__BackingField: Place Hanger
+  - <TutorialText>k__BackingField: Click and hold, dragging the mouse to extend the
+      walls of the room, then click accept to place Hanger
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -97,8 +99,9 @@ MonoBehaviour:
     <MenuType>k__BackingField: 0
     <Config>k__BackingField: {fileID: 11400000, guid: 8f7f654ba36790f43a11330ddb098aa4, type: 2}
     <ShowNextObjective>k__BackingField: 1
-    <VoiceOver>k__BackingField: {fileID: 8300000, guid: 82855a695281e9f418a25de7a6e63f34, type: 3}
-  - <TutorialText>k__BackingField: Click Place Object
+    <VoiceOver>k__BackingField: {fileID: 8300000, guid: 7e0ed8e48f54e4347bf7c9656fb70303, type: 3}
+  - <TutorialText>k__BackingField: Next we will place a landing pad. Click Place
+      Object flashing in the top menu.
     <Type>k__BackingField: 2
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -111,7 +114,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 44a962e25678e8246af1f6e08ac2112a, type: 3}
-  - <TutorialText>k__BackingField: Select Landing Pad
+  - <TutorialText>k__BackingField: Select Landing Pad flashing in the menu.
     <Type>k__BackingField: 4
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -124,7 +127,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 278fd72cbb2ca7845ae288a5014c7746, type: 2}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 290f21c60ade2bf49afb06efadc2acab, type: 3}
-  - <TutorialText>k__BackingField: Place Landing Pad
+  - <TutorialText>k__BackingField: Place Landing Pad by moving where you want to
+      place it with the mouse and left clicking to place.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -137,7 +141,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 31e029b603dcfa242a29ac7d96c02730, type: 3}
-  - <TutorialText>k__BackingField: Click Build a Floor
+  - <TutorialText>k__BackingField: Next we will need a hallway. Click Build a Floor
     <Type>k__BackingField: 2
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -150,7 +154,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: f2b4de3d71f680f409436672f5c2fa2a, type: 3}
-  - <TutorialText>k__BackingField: Select Hallway
+  - <TutorialText>k__BackingField: Select Hallway flashing in the menu.
     <Type>k__BackingField: 3
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -163,7 +167,9 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 442e93dfaf513b7429e5450890e87b1f, type: 2}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 51ada55960af9df47ba8cfd6564f55ef, type: 3}
-  - <TutorialText>k__BackingField: Build Hallway
+  - <TutorialText>k__BackingField: The hallway must be placed touching the hanger
+      you just built. Click and drag accross as you did before then click accept
+      to complete placement.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -176,7 +182,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: c0966af4d43fa6f4b8f250cc5f1de54d, type: 3}
-  - <TutorialText>k__BackingField: Click Build Floor
+  - <TutorialText>k__BackingField: Nex the station needs a place for customers to
+      pay for fuel. Click Build Floor flashing in the top right.
     <Type>k__BackingField: 2
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -189,7 +196,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 6785a4afc86edf946a98f8046cb1738c, type: 3}
-  - <TutorialText>k__BackingField: Select Fuel Purchase Room
+  - <TutorialText>k__BackingField: Select Fuel Purchase flashing in the menu.
     <Type>k__BackingField: 3
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -202,7 +209,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 9228fd544f50f2e4c85868a38e420161, type: 2}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 7c9ee399635e6be40affda16bd9acb06, type: 3}
-  - <TutorialText>k__BackingField: Build Fuel Purchase Room
+  - <TutorialText>k__BackingField: Build Fuel Purchase Room as you did with other
+      rooms. Remeber it must be touching the hallway.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -215,7 +223,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 9228fd544f50f2e4c85868a38e420161, type: 2}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: c5f3f9cdff2ad5b458b68796040f8511, type: 3}
-  - <TutorialText>k__BackingField: Click Place Object
+  - <TutorialText>k__BackingField: The room will need a desk for customer to interact
+      with. Click Place Object flashing in the top bar.
     <Type>k__BackingField: 2
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -228,7 +237,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 9228fd544f50f2e4c85868a38e420161, type: 2}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 3ec3cec39aa099c49b6ce85d51aa6e32, type: 3}
-  - <TutorialText>k__BackingField: Select Transaction Desk
+  - <TutorialText>k__BackingField: Select Fuel Purchase Desk flashing in the list.
     <Type>k__BackingField: 4
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -241,7 +250,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: dd3232423cba33e4fb43780d3846f1ba, type: 2}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 0e2d983b999bbc24bbcf90389e8d79c7, type: 3}
-  - <TutorialText>k__BackingField: Place Transaction Desk
+  - <TutorialText>k__BackingField: Place Transaction Desk inside the fuel purchase
+      room.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -254,7 +264,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 0d69f617831af1744831d4053558dcd6, type: 3}
-  - <TutorialText>k__BackingField: Hire Staff Member
+  - <TutorialText>k__BackingField: Hire Staff Member for the desk you just built
+      by clicking Hire Staff in the bottom left window.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 2
@@ -267,7 +278,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 0
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 9ca3e9cb6733f3e498dafd0fb30733a2, type: 3}
-  - <TutorialText>k__BackingField: Serve a customer
+  - <TutorialText>k__BackingField: With a landing pad and fuel purchase desk your
+      station can start making money. Serve a customer to proced in the tutorial.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 5
@@ -280,7 +292,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: d88de43bdbfd41f43846441d8bc73d02, type: 3}
-  - <TutorialText>k__BackingField: Build Food Area
+  - <TutorialText>k__BackingField: Build Cafeteria by selecting it from the Build
+      Floor menu and placing the room as before.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 0
@@ -293,7 +306,7 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 04cabf3522d2f6849843ffe1749004b1, type: 3}
-  - <TutorialText>k__BackingField: Place Transaction Desk
+  - <TutorialText>k__BackingField: Place Food Transaction Desk in the Cafeteria
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -306,7 +319,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 57ddb93842c895c4ea337f2930cedc0e, type: 3}
-  - <TutorialText>k__BackingField: Hire a Staff Member
+  - <TutorialText>k__BackingField: Hire a Staff Member for the transaction desk in
+      the cafeteria
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 2
@@ -319,7 +333,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 51797b3fa02ddb3458b04cfc7bbf8956, type: 3}
-  - <TutorialText>k__BackingField: Place Table
+  - <TutorialText>k__BackingField: Place Table for customers to sit at in the cafeteria.
+      This is found in the place object menu.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -332,7 +347,8 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: 48e9d2e6e7f5f294e9e4171764b1b452, type: 3}
-  - <TutorialText>k__BackingField: Place Trash Can
+  - <TutorialText>k__BackingField: Place Trash Can in the cafeteria. This is found
+      in the place object menu.
     <Type>k__BackingField: 1
     <Objective>k__BackingField:
       <Type>k__BackingField: 1
@@ -345,6 +361,19 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 0}
     <ShowNextObjective>k__BackingField: 1
     <VoiceOver>k__BackingField: {fileID: 8300000, guid: c0a5e116e97401a478ff497d2c1cf7f1, type: 3}
+  - <TutorialText>k__BackingField: This concludes the tutorial.
+    <Type>k__BackingField: 0
+    <Objective>k__BackingField:
+      <Type>k__BackingField: 1
+      <Value>k__BackingField: 0
+      <Config>k__BackingField: {fileID: 11400000, guid: 9084fb09a7ee6e54e8d4b3a0a53b6caf, type: 2}
+      <TargetObject>k__BackingField: {fileID: 0}
+      <Complete>k__BackingField: 0
+      <Hidded>k__BackingField: 0
+    <MenuType>k__BackingField: 0
+    <Config>k__BackingField: {fileID: 0}
+    <ShowNextObjective>k__BackingField: 0
+    <VoiceOver>k__BackingField: {fileID: 8300000, guid: ea8e783cfc7bd7c4f9857a7a7706da53, type: 3}
   audioSource: {fileID: 2590731885352590992}
   index: -1
 --- !u!82 &2590731885352590992

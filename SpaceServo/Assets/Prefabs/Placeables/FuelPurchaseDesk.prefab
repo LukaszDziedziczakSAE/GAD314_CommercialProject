@@ -471,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300dd77ebdcdbb94da2b364ac670c08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Config>k__BackingField: {fileID: 11400000, guid: 167894b9be14d7a429ca486c17b8f3e8, type: 2}
+  <Config>k__BackingField: {fileID: 11400000, guid: dd3232423cba33e4fb43780d3846f1ba, type: 2}
   validPlacementMat: {fileID: 2100000, guid: cec42ec0f0d3e3e4b9ab0e75c044c07b, type: 2}
   invalidPlacementMat: {fileID: 2100000, guid: 009522e5ff2320446ab15ee5c052590d, type: 2}
   placedMat: {fileID: 2100000, guid: 4cee7a5983b187943adc589b9cb1f084, type: 2}

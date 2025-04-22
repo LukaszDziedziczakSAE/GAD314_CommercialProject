@@ -18,6 +18,7 @@ public class Customer : Character
     [field: SerializeField] public List<Placeable> RemainingInteractions = new List<Placeable>();
 
     public bool HasRefueled => Ship.Fuel.HasRefueled;
+    public bool RefuelingStarted => HasRefueled || Ship.LandingPad.IsRefueling;
     Transform target;
     
     protected override void Update()

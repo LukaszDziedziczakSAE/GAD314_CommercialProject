@@ -31,10 +31,14 @@ public class ObjectiveSystem : MonoBehaviour
 
     private void RoomBuilt(RoomObject room)
     {
+        //Debug.Log("ObjectiveSystem room built check");
+
         bool updated = false;
 
         if (Game.Tutorial.IsRunning)
         {
+            //Debug.Log("Tutorial room built check");
+
             if (Game.Tutorial.CurrentPart.Type == Tutorial.TutorialPart.EType.Objective &&
                 Game.Tutorial.CurrentPart.Objective.Type == Objective.EType.BuildRoom &&
                 room.Config == (Room)Game.Tutorial.CurrentPart.Objective.Config)

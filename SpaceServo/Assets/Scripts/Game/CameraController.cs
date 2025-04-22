@@ -72,14 +72,14 @@ public class CameraController : MonoBehaviour
 
     private void SetCameraPosition()
     {
-        if (DistanceToGround < zoomThreshhold)
+        /*if (DistanceToGround < zoomThreshhold)
         {
             float progress = (DistanceToGround - minZoom) / (zoomThreshhold - minZoom);
             Angle = Mathf.Lerp(zoomedAngle, normalAngle, progress);
         }
-        else Angle = normalAngle;
+        else */Angle = normalAngle;
 
-            float y = Mathf.Cos(Angle) * DistanceToGround; 
+        float y = Mathf.Cos(Angle) * DistanceToGround; 
         float z = Mathf.Sin(Angle) * DistanceToGround;
         Camera.transform.localPosition = new Vector3(0, y, z);
         Camera.transform.localEulerAngles = new Vector3(Angle, 0, 0);

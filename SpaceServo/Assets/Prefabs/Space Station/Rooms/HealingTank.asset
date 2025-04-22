@@ -16,7 +16,7 @@ MonoBehaviour:
   <Description>k__BackingField: A room where customers get medical treatment
   <Type>k__BackingField: 0
   <SupplyType>k__BackingField: 0
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 2800000, guid: 1dc76e1a338f2bf46af86edb5d3badf4, type: 3}
   <FloorTilePrefab>k__BackingField: {fileID: 2897276872064168506, guid: a59e6814ac8c9074ab902afb15919038, type: 3}
   <Placeables>k__BackingField:
   - {fileID: 11400000, guid: dbb7576a856fd4c499b5e96747eec95a, type: 2}

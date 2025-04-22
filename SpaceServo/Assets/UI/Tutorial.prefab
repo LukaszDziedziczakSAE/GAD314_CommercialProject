@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7600893476180907027
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60,6 +60,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 6885564949107442030}
   buttons: {fileID: 8106290711957755488}
+  nextButton: {fileID: 5509265909366533625}
+  exitButton: {fileID: 7503786181310991659}
 --- !u!1 &2649475247368160668
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,19 +288,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3025633174506314049}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 790084839518247847}
-        m_TargetAssemblyTypeName: UI_Tutorial, Assembly-CSharp
-        m_MethodName: OnExitPress
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &3025633174506314049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +491,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -200, y: -200}
-  m_SizeDelta: {x: 450, y: 300}
+  m_SizeDelta: {x: 550, y: 320}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4605229352653304936
 CanvasRenderer:
@@ -767,19 +757,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2801604085711358661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 790084839518247847}
-        m_TargetAssemblyTypeName: UI_Tutorial, Assembly-CSharp
-        m_MethodName: OnNextPress
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2801604085711358661
 MonoBehaviour:
   m_ObjectHideFlags: 0

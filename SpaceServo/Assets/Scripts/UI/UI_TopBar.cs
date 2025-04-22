@@ -11,6 +11,7 @@ public class UI_TopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] Slider ratingSlider;
     [SerializeField] Button buildFloorButton;
     [SerializeField] Button placeObjectButton;
+    [SerializeField] Button menuButton;
 
     public UI_FlashingButton BuildFloorButton => buildFloorButton.GetComponent<UI_FlashingButton>();
     public UI_FlashingButton BuildPlaceableButton => placeObjectButton.GetComponent<UI_FlashingButton>();
@@ -19,12 +20,14 @@ public class UI_TopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         buildFloorButton.onClick.AddListener(OnBuildFloorButtonPress);
         placeObjectButton.onClick.AddListener(OnPlaceObjectButtonPress);
+        menuButton.onClick.AddListener(OnMenuButtonPress);
     }
 
     private void OnDisable()
     {
         buildFloorButton.onClick.RemoveListener(OnBuildFloorButtonPress);
         placeObjectButton.onClick.RemoveListener(OnPlaceObjectButtonPress);
+        menuButton.onClick.RemoveListener(OnMenuButtonPress);
     }
 
     private void OnBuildFloorButtonPress()
@@ -41,6 +44,11 @@ public class UI_TopBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         Game.Selection.DeselectCustomer();
         //Game.Selection.DeselectRoom();
         UI.ShowPlaceablesMenu(!UI.IsPlaceablesMenuShowing);
+    }
+
+    private void OnMenuButtonPress()
+    {
+        Game.PauseGame(!Game.IsPaused);
     }
 
     public void UpdateMoneyText()

@@ -30,14 +30,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932259217689387388}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8053827593826431717}
   m_Father: {fileID: 2401498120357937442}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &351548981392137294
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 1077372421328673310}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.873, z: -0.04}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -344,7 +344,6 @@ MonoBehaviour:
   placedMat: {fileID: 2100000, guid: 4cee7a5983b187943adc589b9cb1f084, type: 2}
   meshes:
   - {fileID: 5496904449478149021}
-  - {fileID: 1183339680740908441}
   boxCollider: {fileID: 7634682339977728158}
   IsPlaced: 0
   HasValidPlacement: 0
@@ -352,7 +351,7 @@ MonoBehaviour:
   - {fileID: 6048265660095589264}
   <InteractionTime>k__BackingField: 40
   <Satisfaction>k__BackingField: 7
-  <CustomerAnimationName>k__BackingField: 
+  <CustomerAnimationName>k__BackingField: Floating
   <ProximityStart>k__BackingField: 2
 --- !u!65 &7634682339977728158
 BoxCollider:

@@ -48,15 +48,17 @@ public class Tutorial : MonoBehaviour
         {
             PartComplete();
             UI.ShowTutorial(true);
+            Debug.Log("Starting tutorial");
         }
     }
 
     public void PartComplete()
     {
-        if (!IsRunning) return;
+        //if (!IsRunning) return;
 
         if (index >= 0) TurnOffButtonFlashing();
         index++;
+        //Debug.Log("Starting tutorial part " + index);
         if (index < Parts.Length)
         {
             TurnOnButtonFlashing();
@@ -79,6 +81,8 @@ public class Tutorial : MonoBehaviour
 
     public void ExitTutorial()
     {
+        Debug.Log("Exiting tutorial");
+
         index = -1;
         UI.ShowTutorial(false);
         UI.UpdateObjectives();

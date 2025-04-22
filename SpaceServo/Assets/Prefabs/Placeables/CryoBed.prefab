@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21577507738478181}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.751, z: 0.569}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: -0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3371414369267723979}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4497512187376828785
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,14 +184,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4914786304378113888}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.032950025, y: -0, z: -0, w: 0.999457}
+  m_LocalRotation: {x: 0.004687095, y: -0, z: -0, w: 0.9999891}
   m_LocalPosition: {x: -0, y: 1.0610479, z: -1.6025066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 427134817847166145}
   m_Father: {fileID: 1802312829486884010}
-  m_LocalEulerAnglesHint: {x: -3.776, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.537, y: 0, z: 0}
 --- !u!33 &2775960608589461576
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   - {fileID: 1125616704555814193}
   <InteractionTime>k__BackingField: 40
   <Satisfaction>k__BackingField: 6
-  <CustomerAnimationName>k__BackingField: 
+  <CustomerAnimationName>k__BackingField: Sleeping
   <ProximityStart>k__BackingField: 2
 --- !u!65 &5120158671301306332
 BoxCollider:

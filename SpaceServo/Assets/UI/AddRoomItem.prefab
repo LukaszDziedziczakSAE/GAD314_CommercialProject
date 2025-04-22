@@ -435,7 +435,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 9159694494320866235}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3867d287a6a02743aa478cb50bbfb63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashingColor: {r: 0.34117648, g: 0.3137255, b: 0.03529412, a: 0.6666667}
+  flashingColor: {r: 0.8, g: 0.76862746, b: 0.4509804, a: 1}
   flashLength: 0.2
 --- !u!114 &9159694494320866235
 MonoBehaviour:

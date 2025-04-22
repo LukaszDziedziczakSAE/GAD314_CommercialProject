@@ -149,6 +149,37 @@ public class Station : MonoBehaviour
         return false;
     }
 
+    public static bool TryGetUnvistedInteractableRoom(List<RoomObject> visitedRooms, out RoomObject interactableRoom)
+    {
+        List<RoomObject> possibleRooms = new List<RoomObject>();
+
+        foreach (RoomObject room in Rooms)
+        {
+            if (!visitedRooms.Contains(room) 
+                && room.Config.Type == Room.EType.None
+                && room.HaveSuppliesForCustomer()
+                && room.HasFreeSlots)
+            {
+                possibleRooms.Add(room);
+            }
+        }
+
+        if (possibleRooms.Count > 0)
+        {
+            interactableRoom = possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Count)];
+            return true;
+        }
+        else
+        {
+            interactableRoom = null;
+            return false;
+        }
+
+            
+
+        
+    }
+
     public static void AddRoom(RoomObject room)
     {
         Instance.rooms.Add(room);

@@ -16,7 +16,7 @@ MonoBehaviour:
   <Description>k__BackingField: Customers rest in cryo beds
   <Type>k__BackingField: 0
   <SupplyType>k__BackingField: 0
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 2800000, guid: eb95e68aae738374fb0f7f678345a2cf, type: 3}
   <FloorTilePrefab>k__BackingField: {fileID: 2897276872064168506, guid: 5a210b19c806f514eb97147232f1d375, type: 3}
   <Placeables>k__BackingField:
   - {fileID: 11400000, guid: 8ec2c7334e2956848be3425cf802b384, type: 2}

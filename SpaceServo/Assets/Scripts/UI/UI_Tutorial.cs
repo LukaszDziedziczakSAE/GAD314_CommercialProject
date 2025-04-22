@@ -1,11 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UI_Tutorial : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] TMP_Text tutorialText;
     [SerializeField] GameObject buttons;
+    [SerializeField] Button nextButton;
+    [SerializeField] Button exitButton;
 
     private void OnEnable()
     {
@@ -14,7 +17,17 @@ public class UI_Tutorial : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             UI.ShowTutorial(false);
             return;
         }
+
+        nextButton.onClick.AddListener(OnNextPress);
+        exitButton.onClick.AddListener(OnExitPress);
+
         UpdateTutorialUI();
+    }
+
+    private void OnDisable()
+    {
+        nextButton.onClick.RemoveListener(OnNextPress);
+        exitButton.onClick.RemoveListener(OnExitPress);
     }
 
 
@@ -29,14 +42,15 @@ public class UI_Tutorial : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         UI.MouseOverUI = false;
     }
 
-    public void OnNextPress()
+    private void OnNextPress()
     {
         UI.Sound.PlayButtonPressSound();
         Game.Tutorial.PartComplete();
     }
 
-    public void OnExitPress()
+    private void OnExitPress()
     {
+        Debug.Log("OnExitPress");
         UI.Sound.PlayButtonCancelSound();
         Game.Tutorial.ExitTutorial();
     }
@@ -50,5 +64,6 @@ public class UI_Tutorial : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         tutorialText.text = Game.Tutorial.CurrentPart.TutorialText;
         buttons.SetActive(Game.Tutorial.CurrentPart.Type == Tutorial.TutorialPart.EType.ClickThrough);
+        if (buttons.activeSelf) nextButton.gameObject.SetActive(Game.Tutorial.HasNextPart);
     }
 }
